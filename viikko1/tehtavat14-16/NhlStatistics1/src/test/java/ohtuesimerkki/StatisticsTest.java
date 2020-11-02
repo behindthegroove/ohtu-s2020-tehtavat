@@ -50,16 +50,18 @@ public class StatisticsTest {
     @Test
     public void teamFindsCorrectPlayers() {
         String player = readerStub.getPlayers().get(1).getName();
-        String found = stats.team("PIT").get(0).getName();
-        assertEquals(player, found);
+        List<Player> team = stats.team("PIT");
+        String found = team.get(0).getName();
+        assertTrue(player.equals(found) && team.size()==1);
     }
     
     @Test
     public void topScorersFindsCorrectPlayers() {
         String p1 = readerStub.getPlayers().get(4).getName();
         String p2 = readerStub.getPlayers().get(1).getName();
-        String found1 = stats.topScorers(2).get(0).getName();
-        String found2 = stats.topScorers(2).get(1).getName();
-        assertTrue(p1.equals(found1) && p2.equals(found2));
+        List<Player> top = stats.topScorers(2);
+        String found1 = top.get(0).getName();
+        String found2 = top.get(1).getName();
+        assertTrue(p1.equals(found1) && p2.equals(found2) && top.size()==2);
     }
 }
