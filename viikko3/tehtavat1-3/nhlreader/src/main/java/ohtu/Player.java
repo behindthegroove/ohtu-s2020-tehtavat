@@ -66,9 +66,14 @@ public class Player {
         this.games = games;
     }
 
+    public int getPoints() {
+        return goals + assists;
+    }
+
     @Override
     public String toString() {
-        return name;
+        return name + "\t " + team + "\t " + goals + " + " + assists + " = "
+                + (goals + assists);
     }
       
 }
