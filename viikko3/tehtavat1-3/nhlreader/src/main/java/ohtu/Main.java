@@ -27,9 +27,7 @@ public class Main {
             }
         }
 
-        playersFin.stream()
-                .sorted((a, b) -> b.getPoints() - a.getPoints())
-                .forEach(p -> System.out.println(p));
+        playersFin.stream().sorted().forEach(p -> System.out.println(p));
     }
 
 }
