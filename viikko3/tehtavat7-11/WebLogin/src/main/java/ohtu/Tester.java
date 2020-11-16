@@ -1,5 +1,6 @@
 package ohtu;
 
+import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,26 +17,56 @@ public class Tester {
 
         sleep(2);
 
-        WebElement element = driver.findElement(By.linkText("login"));
+        // Test creating new user
+        WebElement element = driver.findElement(By.linkText("register new user"));
         element.click();
         System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
 
         sleep(2);
 
         element = driver.findElement(By.name("username"));
-        element.sendKeys("pekka");
+        Random r = new Random();
+        element.sendKeys("user" + r.nextInt(100000));
         element = driver.findElement(By.name("password"));
-        element.sendKeys("akkep");
-        element = driver.findElement(By.name("login"));
-        System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+        element.sendKeys("password123");
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys("password123");
+        element = driver.findElement(By.name("signup"));
 
         sleep(2);
         element.submit();
         System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
 
-        sleep(3);
-
+        sleep(2);
+        element = driver.findElement(By.linkText("continue to application mainpage"));
+        element.click();
         System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+
+        sleep(2);
+        element = driver.findElement(By.linkText("logout"));
+        element.click();
+        System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+
+//        // Test login
+//        WebElement element = driver.findElement(By.linkText("login")); // kirjautuminen
+//        element.click();
+//        System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+//
+//        sleep(2);
+//
+//        element = driver.findElement(By.name("username"));
+//        element.sendKeys("pekka");
+//        element = driver.findElement(By.name("password"));
+//        // element.sendKeys("akkep"); // login with correct password
+//        element.sendKeys("wrong"); // login with incorrect password
+//        element = driver.findElement(By.name("login"));
+//        System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+//
+//        sleep(2);
+//        element.submit();
+//        System.out.println(driver.getPageSource()); // tulostetaan sivu konsoliin
+
+        sleep(3);
 
         driver.quit();
     }
