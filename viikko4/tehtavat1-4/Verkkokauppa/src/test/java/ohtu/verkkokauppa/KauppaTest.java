@@ -90,4 +90,31 @@ public class KauppaTest {
                                 anyString(), eq(5));
     }
 
+    @Test
+    public void aloitaAsiointiNollaaEdellisenOstoksenTiedot() {
+        k.lisaaKoriin(1);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu(nimi, tilinumero);
+
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(),
+                                anyString(), eq(5));
+    }
+
+    @Test
+    public void kauppaPyytaaUudenViitenumeronJokaMaksutapahtumalle() {
+        k.lisaaKoriin(1);
+        k.tilimaksu(nimi, tilinumero);
+
+        verify(viite, times(1)).uusi();
+    }
+
+    @Test
+    public void tuotteenPoistoKoristaKutsuuVarastonMetodiaPalautaVarastoon() {
+        k.lisaaKoriin(1);
+        k.poistaKorista(1);
+
+        verify(varasto, times(1)).palautaVarastoon(any(Tuote.class));
+    }
 }
