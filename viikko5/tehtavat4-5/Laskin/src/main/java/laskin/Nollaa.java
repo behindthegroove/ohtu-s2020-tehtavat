@@ -10,8 +10,10 @@ public class Nollaa extends Komento {
     private Button nollaa;
     private Button undo;
     private Sovelluslogiikka sovellus;
+    private int edellinen;
 
-    public Nollaa(TextField tuloskentta, TextField syotekentta, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
+    public Nollaa(TextField tuloskentta, TextField syotekentta,
+                Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         this.tuloskentta = tuloskentta;
         this.syotekentta = syotekentta;
         this.nollaa = nollaa;
@@ -22,17 +24,23 @@ public class Nollaa extends Komento {
 
     @Override
     public void suorita() {
+        edellinen = Integer.parseInt(tuloskentta.getText());
         sovellus.nollaa();
+        paivita();
+        undo.setDisable(false);
+    }
 
+    @Override
+    public void peru() {
+        sovellus.plus(edellinen);
+        paivita();
+        undo.setDisable(true);
+    }
+
+    private void paivita() {
         int laskunTulos = sovellus.tulos();
-
         syotekentta.setText("");
         tuloskentta.setText("" + laskunTulos);
-        
-        if (laskunTulos==0) {
-            nollaa.setDisable(true);
-        } else {
-            nollaa.setDisable(false);
-        }
+        nollaa.setDisable(true);
     }
 }

@@ -10,6 +10,7 @@ public class Summa extends Komento {
     private Button nollaa;
     private Button undo;
     private Sovelluslogiikka sovellus;
+    private int edellinen;
 
     public Summa(TextField tuloskentta, TextField syotekentta,
                 Button nollaa, Button undo, Sovelluslogiikka sovellus) {
@@ -18,6 +19,7 @@ public class Summa extends Komento {
         this.nollaa = nollaa;
         this.undo = undo;
         this.sovellus = sovellus;
+        this.edellinen = 0;
     }
 
     @Override
@@ -30,7 +32,19 @@ public class Summa extends Komento {
         }
 
         sovellus.plus(arvo);
+        edellinen = arvo;
+        paivita();
+        undo.setDisable(false);
+    }
 
+    @Override
+    public void peru() {
+        sovellus.miinus(edellinen);
+        paivita();
+        undo.setDisable(true);
+    }
+    
+    private void paivita() {
         int laskunTulos = sovellus.tulos();
 
         syotekentta.setText("");
